@@ -1,0 +1,26 @@
+#updater-script
+#By marduk191
+
+set_progress(0.01);
+
+ifelse(is_mounted("/system") == "/system", unmount("/system"));
+ifelse(is_mounted("/cache") == "/cache", unmount("/cache"));
+
+ui_print("  ");
+ui_print("Recovery installer");
+ui_print("By: marduk191");
+ui_print("  ");
+set_progress(0.01);
+
+################Recovery partition
+package_extract_file("recovery.img", "/dev/block/platform/msm_sdcc.1/by-num/p18");
+set_progress(0.5);
+
+################WIPE CACHE
+ui_print("Wiping /cache");
+run_program("/sbin/busybox", "mount", "/cache");
+delete_recursive("/cache/");
+run_program("/sbin/busybox", "umount", "/cache");
+set_progress(1.0);
+
+ui_print("Recovery flashed, enjoy!");

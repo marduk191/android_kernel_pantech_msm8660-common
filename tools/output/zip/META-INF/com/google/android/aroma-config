@@ -1,0 +1,81 @@
+ini_set("force_colorspace","rgba");
+##
+#
+# AROMA Installer - marduk191
+#       (c) 2011 by Ahmad Amarullah
+#           amarullz - xda-developers
+#
+#                Version 4.4KK
+#
+##
+
+theme("ics");
+
+anisplash(
+  #-- Number of Loop
+    4,
+  
+  #-- Frame 1 [ Image, duration in millisecond ]. <AROMA Resource Dir>/splash/a1.png
+    "splash/a1", 500
+);
+
+fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+
+#Content
+
+#set vars
+ini_set("rom_name",             "PhillZ recovery");
+ini_set("rom_author",           "marduk191");
+ini_set("rom_device",           "Pantech Burst");
+ini_set("rom_date",             "8-31-2014");
+ini_set("rom_version",          "test-1");
+ini_set("rom_hp",          "http://pantecdevteam.github.io");
+viewbox(
+  "Pantech Burst recovery installer",
+    "\n\n\n\n\n"+
+    "           	You're about to flash\n"+
+    "      		"+ini_get("rom_name")+" for the \n"+
+    "                   "+ini_get("rom_device")+"\n\n"+
+    "\n\n\n"+
+    "  AUTHOR : "+ini_get("rom_author")+"</#>\n"+
+    "  VERSION : "+ini_get("rom_version")+"</#>\n"+
+    "  UPDATED : "+ini_get("rom_date")+"</#>\n"+
+    "  HOMEPAGE : "+ini_get("rom_hp")+"</#>\n\n"+
+    "Press Next to continue the installation...",
+  "icons/install"
+);
+
+textbox(
+  "Changelog",
+  "What's New?",
+  "icons/update",
+  readfile_aroma("changelogs.txt")
+);
+
+viewbox(
+  "Ready To Install",
+  "Click -Next- to start the installation....\n\n\n"+
+  "Your cache will be cleaned after installation \n"+
+  "in order to ensure a clean flash.",
+  "icons/confirm"
+);
+
+install(
+  "Installing",
+  "Installing recovery...\nPlease wait until flash is complete...",
+  "icons/alert"
+);
+
+# Set Next Text fo Finish
+ini_set("text_next", "Finish");
+
+viewbox(
+  "Installation Completed",
+  "<#080>Congratulations...</#>\n\n"+
+  "Recovery has been installed\n\n"+
+  "Press Finish, and Reboot your phone.\n\n"+
+  "\n\n\n\n"+
+  ".....\n\n\nThank you",
+  "icons/finish"
+);
