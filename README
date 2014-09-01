@@ -1,3 +1,7 @@
+######################################################################################
+Place arm-eabi-4.6 in the ./tools directory for standalone support.
+You can point it to a build tree if you already have CM sources and plan to keep them.
+######################################################################################
 	Linux kernel release 3.x <http://kernel.org/>
 
 These are the release notes for Linux version 3.  Read them carefully,
