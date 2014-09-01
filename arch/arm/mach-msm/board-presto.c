@@ -19,6 +19,8 @@
 #include <linux/msm_ssbi.h>
 #include <linux/mfd/pmic8058.h>
 
+#include <linux/msm_tsens.h>
+
 #include <linux/leds.h>
 #include <linux/pmic8058-othc.h>
 #include <linux/mfd/pmic8901.h>
@@ -5026,9 +5028,11 @@ static struct platform_device msm_bt_power_device = {
 #endif
 #endif /* CONFIG_PANTECH_BT */
 
-static struct platform_device msm_tsens_device = {
-	.name   = "tsens-tm",
-	.id = -1,
+static struct tsens_platform_data pyr_tsens_pdata = {
+	 .tsens_factor = 1000,
+	 .hw_type = MSM_8660,
+	 .tsens_num_sensor = 1,
+	 .slope = 702,
 };
 
 #ifdef CONFIG_SKY_WLAN
@@ -6415,7 +6419,6 @@ static struct platform_device *surf_devices[] __initdata = {
     &wlan_device,
 #endif /* CONFIG_WIFI_CONTROL_FUNC */
 
-	&msm_tsens_device,
 	&msm_rpm_device,
 #ifdef CONFIG_ION_MSM
 	&ion_dev,
@@ -12024,6 +12027,8 @@ static struct msm_board_data msm8x60_dragon_board_data __initdata = {
 static void __init msm8x60_init(struct msm_board_data *board_data)
 {
 	uint32_t soc_platform_version;
+	msm_tsens_early_init(&pyr_tsens_pdata);
+
 #ifdef CONFIG_USB_EHCI_MSM_72K
 	struct pm8xxx_mpp_config_data hsusb_phy_mpp = {
 		.type		= PM8XXX_MPP_TYPE_D_OUTPUT,

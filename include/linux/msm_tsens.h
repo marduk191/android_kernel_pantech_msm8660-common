@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2011, Code Aurora Forum. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -25,10 +25,8 @@ enum platform_type {
 	MSM_TYPE
 };
 
-#define TSENS_MAX_SENSORS		11
-
 struct tsens_platform_data {
-	int				slope[TSENS_MAX_SENSORS];
+	int				slope;
 	int				tsens_factor;
 	uint32_t			tsens_num_sensor;
 	enum platform_type		hw_type;
@@ -42,3 +40,5 @@ int32_t tsens_get_temp(struct tsens_device *dev, unsigned long *temp);
 int msm_tsens_early_init(struct tsens_platform_data *pdata);
 
 #endif /*MSM_TSENS_H */
+
+
