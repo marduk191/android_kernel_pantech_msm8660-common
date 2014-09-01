@@ -1,0 +1,1 @@
+console=ttyHSL0,115200,n8 androidboot.hardware=qcom kgsl.mmutype=gpummu vmalloc=400M loglevel=0 androidboot.selinux=permissive androidboot.baseband=csfb
