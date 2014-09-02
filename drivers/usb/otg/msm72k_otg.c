@@ -32,6 +32,11 @@
 #include <mach/clk.h>
 #include <mach/msm_xo.h>
 
+#ifdef CONFIG_FORCE_FAST_CHARGE
+#include <linux/fastchg.h>
+#define USB_FASTCHG_LOAD 1000 /* uA */
+#endif
+
 #define MSM_USB_BASE	(dev->regs)
 #define USB_LINK_RESET_TIMEOUT	(msecs_to_jiffies(10))
 #define DRIVER_NAME	"msm_otg"
@@ -538,6 +543,21 @@ static int msm_otg_set_power(struct otg_transceiver *xceiv, unsigned mA)
 	if (test_bit(ID_C, &dev->inputs) ||
 				test_bit(ID_B, &dev->inputs))
 		charge = USB_IDCHG_MAX;
+#ifdef CONFIG_FORCE_FAST_CHARGE
+
+if (force_fast_charge == 1) {
+/* Don't override charging current if available current is greater */
+	if (charge >= USB_FASTCHG_LOAD){
+		pr_info("Available current already greater than USB fastcharging current!!!\n");
+		pr_info("Override of USB charging current cancelled.\n");
+	} else {
+		charge = USB_FASTCHG_LOAD;
+		pr_info("USB fast charging is ON!!!\n");
+	}
+} else {
+	pr_info("USB fast charging is OFF.\n");
+}
+#endif
 
 #ifdef CONFIG_SKY_CHARGING  //kobj 110513
 	pr_info("[SKY CHG]Charging with %dmA current, charge_type %d\n", charge,new_chg);

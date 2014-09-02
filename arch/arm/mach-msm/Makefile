@@ -354,3 +354,5 @@ obj-$(CONFIG_PANTECH_ERR_CRASH_LOGGING) += pantech_apanic.o sky_sys_reset.o
 ifdef CONFIG_SKY_WLAN
 obj-$(CONFIG_PANMAC) += panmac.o rpc_nv.o
 endif
+
+obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
